@@ -8,16 +8,23 @@ import { parseISO, isValid, format } from 'date-fns';
  * @returns {Date} Parsed date or fallback
  */
 export const safeParseISO = (dateString, fallback = new Date()) => {
-  // Return fallback immediately if input is falsy
+  // Return fallback immediately if input is falsy or not a string
   if (!dateString || typeof dateString !== 'string') {
     return fallback;
   }
   
+  // Additional safety check for empty strings after trimming
+  const trimmed = dateString.trim();
+  if (!trimmed || trimmed.length === 0) {
+    return fallback;
+  }
+  
   try {
-    const parsed = parseISO(dateString);
+    // Use the trimmed string to ensure no whitespace issues
+    const parsed = parseISO(trimmed);
     return isValid(parsed) ? parsed : fallback;
   } catch (error) {
-    console.warn('Date parsing failed:', error.message, 'Input:', dateString);
+    console.warn('Date parsing failed:', error.message, 'Input:', dateString, 'Type:', typeof dateString);
     return fallback;
   }
 };

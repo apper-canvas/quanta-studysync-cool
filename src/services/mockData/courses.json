@@ -1,0 +1,106 @@
+[
+  {
+    "Id": 1,
+    "name": "Introduction to Psychology",
+    "instructor": "Dr. Sarah Johnson",
+    "credits": 3,
+    "color": "#4f46e5",
+    "semester": "Fall 2024",
+    "schedule": [
+      {
+        "day": 1,
+        "time": 540,
+        "endTime": 630,
+        "display": "Mon 09:00-10:30"
+      },
+      {
+        "day": 3,
+        "time": 540,
+        "endTime": 630,
+        "display": "Wed 09:00-10:30"
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "name": "Calculus I",
+    "instructor": "Prof. Michael Chen",
+    "credits": 4,
+    "color": "#dc2626",
+    "semester": "Fall 2024",
+    "schedule": [
+      {
+        "day": 2,
+        "time": 660,
+        "endTime": 750,
+        "display": "Tue 11:00-12:30"
+      },
+      {
+        "day": 4,
+        "time": 660,
+        "endTime": 750,
+        "display": "Thu 11:00-12:30"
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "name": "English Composition",
+    "instructor": "Dr. Emily Rodriguez",
+    "credits": 3,
+    "color": "#059669",
+    "semester": "Fall 2024",
+    "schedule": [
+      {
+        "day": 1,
+        "time": 780,
+        "endTime": 870,
+        "display": "Mon 13:00-14:30"
+      },
+      {
+        "day": 3,
+        "time": 780,
+        "endTime": 870,
+        "display": "Wed 13:00-14:30"
+      }
+    ]
+  },
+  {
+    "Id": 4,
+    "name": "Biology Lab",
+    "instructor": "Dr. James Wilson",
+    "credits": 1,
+    "color": "#7c3aed",
+    "semester": "Fall 2024",
+    "schedule": [
+      {
+        "day": 5,
+        "time": 480,
+        "endTime": 660,
+        "display": "Fri 08:00-11:00"
+      }
+    ]
+  },
+  {
+    "Id": 5,
+    "name": "World History",
+    "instructor": "Prof. Lisa Thompson",
+    "credits": 3,
+    "color": "#ea580c",
+    "semester": "Fall 2024",
+    "schedule": [
+      {
+        "day": 2,
+        "time": 480,
+        "endTime": 570,
+        "display": "Tue 08:00-09:30"
+      },
+      {
+        "day": 4,
+        "time": 480,
+        "endTime": 570,
+        "display": "Thu 08:00-09:30"
+      }
+    ]
+  }
+]

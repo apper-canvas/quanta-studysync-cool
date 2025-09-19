@@ -1,0 +1,82 @@
+[
+  {
+    "Id": 1,
+    "courseId": 1,
+    "title": "Chapter 3 Reading Assignment",
+    "dueDate": "2024-12-20T23:59:00Z",
+    "priority": "medium",
+    "completed": false,
+    "description": "Read chapter 3 on cognitive psychology and complete the review questions",
+    "type": "Assignment"
+  },
+  {
+    "Id": 2,
+    "courseId": 2,
+    "title": "Limits and Continuity Problem Set",
+    "dueDate": "2024-12-18T23:59:00Z",
+    "priority": "high",
+    "completed": true,
+    "description": "Complete problems 1-25 from section 2.4",
+    "type": "Assignment"
+  },
+  {
+    "Id": 3,
+    "courseId": 3,
+    "title": "Narrative Essay Draft",
+    "dueDate": "2024-12-22T23:59:00Z",
+    "priority": "high",
+    "completed": false,
+    "description": "Submit first draft of personal narrative essay (1000-1200 words)",
+    "type": "Essay"
+  },
+  {
+    "Id": 4,
+    "courseId": 1,
+    "title": "Midterm Exam",
+    "dueDate": "2024-12-25T14:00:00Z",
+    "priority": "high",
+    "completed": false,
+    "description": "Comprehensive exam covering chapters 1-6",
+    "type": "Exam"
+  },
+  {
+    "Id": 5,
+    "courseId": 4,
+    "title": "Cell Division Lab Report",
+    "dueDate": "2024-12-19T17:00:00Z",
+    "priority": "medium",
+    "completed": false,
+    "description": "Write lab report on mitosis and meiosis observations",
+    "type": "Lab"
+  },
+  {
+    "Id": 6,
+    "courseId": 5,
+    "title": "Ancient Civilizations Quiz",
+    "dueDate": "2024-12-21T10:00:00Z",
+    "priority": "low",
+    "completed": true,
+    "description": "Quiz on Mesopotamia and Ancient Egypt",
+    "type": "Quiz"
+  },
+  {
+    "Id": 7,
+    "courseId": 2,
+    "title": "Derivative Applications Project",
+    "dueDate": "2024-12-30T23:59:00Z",
+    "priority": "medium",
+    "completed": false,
+    "description": "Real-world applications of derivatives in economics and physics",
+    "type": "Project"
+  },
+  {
+    "Id": 8,
+    "courseId": 3,
+    "title": "Peer Review Workshop",
+    "dueDate": "2024-12-17T15:30:00Z",
+    "priority": "low",
+    "completed": true,
+    "description": "Participate in peer review session for narrative essays",
+    "type": "Assignment"
+  }
+]

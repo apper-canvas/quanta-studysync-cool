@@ -1,0 +1,65 @@
+[
+  {
+    "Id": 1,
+    "courseId": 1,
+    "assignmentId": 2,
+    "score": 85,
+    "maxScore": 100,
+    "category": "Assignment",
+    "weight": 0.4
+  },
+  {
+    "Id": 2,
+    "courseId": 2,
+    "assignmentId": 2,
+    "score": 92,
+    "maxScore": 100,
+    "category": "Assignment",
+    "weight": 0.3
+  },
+  {
+    "Id": 3,
+    "courseId": 5,
+    "assignmentId": 6,
+    "score": 88,
+    "maxScore": 100,
+    "category": "Quiz",
+    "weight": 0.2
+  },
+  {
+    "Id": 4,
+    "courseId": 3,
+    "assignmentId": 8,
+    "score": 95,
+    "maxScore": 100,
+    "category": "Participation",
+    "weight": 0.1
+  },
+  {
+    "Id": 5,
+    "courseId": 1,
+    "assignmentId": null,
+    "score": 78,
+    "maxScore": 100,
+    "category": "Quiz",
+    "weight": 0.2
+  },
+  {
+    "Id": 6,
+    "courseId": 2,
+    "assignmentId": null,
+    "score": 89,
+    "maxScore": 100,
+    "category": "Quiz",
+    "weight": 0.2
+  },
+  {
+    "Id": 7,
+    "courseId": 4,
+    "assignmentId": null,
+    "score": 93,
+    "maxScore": 100,
+    "category": "Lab",
+    "weight": 0.5
+  }
+]

@@ -6,14 +6,14 @@ import Button from "@/components/atoms/Button";
 import FormField from "@/components/molecules/FormField";
 
 const AssignmentForm = ({ isOpen, onClose, assignment, courses, onSave }) => {
-  const [formData, setFormData] = useState({
-    title: "",
-    courseId: "",
-    dueDate: "",
-    priority: "medium",
-    type: "Assignment",
-    description: "",
-    completed: false
+const [formData, setFormData] = useState({
+    title_c: "",
+    course_id_c: "",
+    due_date_c: "",
+    priority_c: "medium",
+    type_c: "Assignment",
+    description_c: "",
+    completed_c: false
   });
 
   const priorityOptions = [
@@ -32,15 +32,15 @@ const AssignmentForm = ({ isOpen, onClose, assignment, courses, onSave }) => {
   ];
 
   useEffect(() => {
-    if (assignment) {
+if (assignment) {
       setFormData({
-        title: assignment.title || "",
-        courseId: assignment.courseId?.toString() || "",
-        dueDate: assignment.dueDate ? format(new Date(assignment.dueDate), "yyyy-MM-dd") : "",
-        priority: assignment.priority || "medium",
-        type: assignment.type || "Assignment",
-        description: assignment.description || "",
-        completed: assignment.completed || false
+        title_c: assignment.title_c || "",
+        course_id_c: assignment.course_id_c?.toString() || "",
+        due_date_c: assignment.due_date_c ? format(new Date(assignment.due_date_c), "yyyy-MM-dd") : "",
+        priority_c: assignment.priority_c || "medium",
+        type_c: assignment.type_c || "Assignment",
+        description_c: assignment.description_c || "",
+        completed_c: assignment.completed_c || false
       });
     } else {
       setFormData({
@@ -82,8 +82,8 @@ const AssignmentForm = ({ isOpen, onClose, assignment, courses, onSave }) => {
 
     const assignmentData = {
       ...formData,
-      courseId: parseInt(formData.courseId),
-      dueDate: new Date(formData.dueDate).toISOString(),
+course_id_c: parseInt(formData.course_id_c),
+      due_date_c: new Date(formData.due_date_c).toISOString(),
       Id: assignment?.Id
     };
 
@@ -93,8 +93,8 @@ const AssignmentForm = ({ isOpen, onClose, assignment, courses, onSave }) => {
   const courseOptions = [
     { value: "", label: "Select a course" },
     ...courses.map(course => ({
-      value: course.Id.toString(),
-      label: course.name
+value: course.Id.toString(),
+      label: course.name_c
     }))
   ];
 
@@ -105,8 +105,8 @@ const AssignmentForm = ({ isOpen, onClose, assignment, courses, onSave }) => {
           <div className="space-y-6">
             <FormField
               label="Assignment Title"
-              value={formData.title}
-              onChange={(e) => handleInputChange("title", e.target.value)}
+value={formData.title_c}
+              onChange={(e) => handleInputChange("title_c", e.target.value)}
               placeholder="e.g., Chapter 5 Reading Assignment"
               required
             />
@@ -115,16 +115,16 @@ const AssignmentForm = ({ isOpen, onClose, assignment, courses, onSave }) => {
               <FormField
                 type="select"
                 label="Course"
-                value={formData.courseId}
-                onChange={(e) => handleInputChange("courseId", e.target.value)}
+value={formData.course_id_c}
+                onChange={(e) => handleInputChange("course_id_c", e.target.value)}
                 options={courseOptions}
                 required
               />
               
               <FormField
                 label="Due Date"
-                type="date"
-                value={formData.dueDate}
+type="date"
+                value={formData.due_date_c}
                 onChange={(e) => handleInputChange("dueDate", e.target.value)}
                 required
               />
@@ -133,24 +133,24 @@ const AssignmentForm = ({ isOpen, onClose, assignment, courses, onSave }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormField
                 type="select"
-                label="Priority"
-                value={formData.priority}
+label="Priority"
+                value={formData.priority_c}
                 onChange={(e) => handleInputChange("priority", e.target.value)}
                 options={priorityOptions}
               />
               
               <FormField
                 type="select"
-                label="Type"
-                value={formData.type}
+label="Type"
+                value={formData.type_c}
                 onChange={(e) => handleInputChange("type", e.target.value)}
                 options={typeOptions}
               />
             </div>
 
             <FormField
-              label="Description (Optional)"
-              value={formData.description}
+label="Description (Optional)"
+              value={formData.description_c}
               onChange={(e) => handleInputChange("description", e.target.value)}
               placeholder="Additional details about the assignment..."
             />
@@ -160,8 +160,8 @@ const AssignmentForm = ({ isOpen, onClose, assignment, courses, onSave }) => {
                 <input
                   type="checkbox"
                   id="completed"
-                  checked={formData.completed}
-                  onChange={(e) => handleInputChange("completed", e.target.checked)}
+checked={formData.completed_c}
+                  onChange={(e) => handleInputChange("completed_c", e.target.checked)}
                   className="rounded border-slate-300 text-primary focus:ring-primary"
                 />
                 <label htmlFor="completed" className="text-sm font-medium text-slate-700">

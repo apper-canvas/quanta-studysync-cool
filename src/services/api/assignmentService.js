@@ -1,67 +1,292 @@
-import assignmentsData from "@/services/mockData/assignments.json";
-
-let assignments = [...assignmentsData];
-
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+import { toast } from "react-toastify";
 
 export const assignmentService = {
   async getAll() {
-    await delay(300);
-    return [...assignments];
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "course_id_c"}}, 
+          {"field": {"Name": "title_c"}}, 
+          {"field": {"Name": "due_date_c"}}, 
+          {"field": {"Name": "priority_c"}}, 
+          {"field": {"Name": "type_c"}}, 
+          {"field": {"Name": "description_c"}}, 
+          {"field": {"Name": "completed_c"}}
+        ]
+      };
+      
+      const response = await apperClient.fetchRecords("assignment_c", params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        toast.error(response.message);
+        return [];
+      }
+      
+      return response.data?.map(assignment => ({
+        Id: assignment.Id,
+        course_id_c: assignment.course_id_c?.Id || assignment.course_id_c,
+        title_c: assignment.title_c,
+        due_date_c: assignment.due_date_c,
+        priority_c: assignment.priority_c,
+        type_c: assignment.type_c,
+        description_c: assignment.description_c,
+        completed_c: assignment.completed_c
+      })) || [];
+    } catch (error) {
+      console.error("Error fetching assignments:", error?.response?.data?.message || error);
+      return [];
+    }
   },
 
   async getById(id) {
-    await delay(200);
-    const assignment = assignments.find(a => a.Id === parseInt(id));
-    if (!assignment) {
-      throw new Error("Assignment not found");
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "course_id_c"}}, 
+          {"field": {"Name": "title_c"}}, 
+          {"field": {"Name": "due_date_c"}}, 
+          {"field": {"Name": "priority_c"}}, 
+          {"field": {"Name": "type_c"}}, 
+          {"field": {"Name": "description_c"}}, 
+          {"field": {"Name": "completed_c"}}
+        ]
+      };
+
+      const response = await apperClient.getRecordById("assignment_c", parseInt(id), params);
+      
+      if (!response?.data) {
+        return null;
+      }
+
+      const assignment = response.data;
+      return {
+        Id: assignment.Id,
+        course_id_c: assignment.course_id_c?.Id || assignment.course_id_c,
+        title_c: assignment.title_c,
+        due_date_c: assignment.due_date_c,
+        priority_c: assignment.priority_c,
+        type_c: assignment.type_c,
+        description_c: assignment.description_c,
+        completed_c: assignment.completed_c
+      };
+    } catch (error) {
+      console.error(`Error fetching assignment ${id}:`, error?.response?.data?.message || error);
+      return null;
     }
-    return { ...assignment };
   },
 
   async getByCourse(courseId) {
-    await delay(250);
-    return assignments.filter(a => a.courseId === parseInt(courseId));
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "course_id_c"}}, 
+          {"field": {"Name": "title_c"}}, 
+          {"field": {"Name": "due_date_c"}}, 
+          {"field": {"Name": "priority_c"}}, 
+          {"field": {"Name": "type_c"}}, 
+          {"field": {"Name": "description_c"}}, 
+          {"field": {"Name": "completed_c"}}
+        ],
+        where: [
+          {"FieldName": "course_id_c", "Operator": "EqualTo", "Values": [parseInt(courseId)]}
+        ]
+      };
+
+      const response = await apperClient.fetchRecords("assignment_c", params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        return [];
+      }
+
+      return response.data?.map(assignment => ({
+        Id: assignment.Id,
+        course_id_c: assignment.course_id_c?.Id || assignment.course_id_c,
+        title_c: assignment.title_c,
+        due_date_c: assignment.due_date_c,
+        priority_c: assignment.priority_c,
+        type_c: assignment.type_c,
+        description_c: assignment.description_c,
+        completed_c: assignment.completed_c
+      })) || [];
+    } catch (error) {
+      console.error("Error fetching assignments by course:", error?.response?.data?.message || error);
+      return [];
+    }
   },
 
   async create(assignmentData) {
-    await delay(400);
-    const maxId = assignments.length > 0 ? Math.max(...assignments.map(a => a.Id)) : 0;
-    const newAssignment = {
-      ...assignmentData,
-      Id: maxId + 1
-    };
-    assignments.push(newAssignment);
-    return { ...newAssignment };
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = {
+        records: [{
+          Name: assignmentData.title_c || assignmentData.Name,
+          course_id_c: parseInt(assignmentData.course_id_c),
+          title_c: assignmentData.title_c,
+          due_date_c: assignmentData.due_date_c,
+          priority_c: assignmentData.priority_c,
+          type_c: assignmentData.type_c,
+          description_c: assignmentData.description_c,
+          completed_c: assignmentData.completed_c || false
+        }]
+      };
+
+      const response = await apperClient.createRecord("assignment_c", params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        toast.error(response.message);
+        return null;
+      }
+
+      const successful = response.results?.filter(r => r.success);
+      const failed = response.results?.filter(r => !r.success);
+      
+      if (failed?.length > 0) {
+        console.error(`Failed to create ${failed.length} assignments:${JSON.stringify(failed)}`);
+        failed.forEach(record => {
+          record.errors?.forEach(error => toast.error(`${error.fieldLabel}: ${error}`));
+          if (record.message) toast.error(record.message);
+        });
+      }
+
+      return successful?.[0]?.data || null;
+    } catch (error) {
+      console.error("Error creating assignment:", error?.response?.data?.message || error);
+      return null;
+    }
   },
 
   async update(id, assignmentData) {
-    await delay(400);
-    const index = assignments.findIndex(a => a.Id === parseInt(id));
-    if (index === -1) {
-      throw new Error("Assignment not found");
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = {
+        records: [{
+          Id: parseInt(id),
+          Name: assignmentData.title_c || assignmentData.Name,
+          course_id_c: parseInt(assignmentData.course_id_c),
+          title_c: assignmentData.title_c,
+          due_date_c: assignmentData.due_date_c,
+          priority_c: assignmentData.priority_c,
+          type_c: assignmentData.type_c,
+          description_c: assignmentData.description_c,
+          completed_c: assignmentData.completed_c
+        }]
+      };
+
+      const response = await apperClient.updateRecord("assignment_c", params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        toast.error(response.message);
+        return null;
+      }
+
+      const successful = response.results?.filter(r => r.success);
+      const failed = response.results?.filter(r => !r.success);
+      
+      if (failed?.length > 0) {
+        console.error(`Failed to update ${failed.length} assignments:${JSON.stringify(failed)}`);
+        failed.forEach(record => {
+          record.errors?.forEach(error => toast.error(`${error.fieldLabel}: ${error}`));
+          if (record.message) toast.error(record.message);
+        });
+      }
+
+      return successful?.[0]?.data || null;
+    } catch (error) {
+      console.error("Error updating assignment:", error?.response?.data?.message || error);
+      return null;
     }
-    assignments[index] = { ...assignments[index], ...assignmentData, Id: parseInt(id) };
-    return { ...assignments[index] };
   },
 
   async delete(id) {
-    await delay(300);
-    const index = assignments.findIndex(a => a.Id === parseInt(id));
-    if (index === -1) {
-      throw new Error("Assignment not found");
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+
+      const params = { 
+        RecordIds: [parseInt(id)]
+      };
+
+      const response = await apperClient.deleteRecord("assignment_c", params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        toast.error(response.message);
+        return false;
+      }
+
+      const successful = response.results?.filter(r => r.success);
+      const failed = response.results?.filter(r => !r.success);
+      
+      if (failed?.length > 0) {
+        console.error(`Failed to delete ${failed.length} assignments:${JSON.stringify(failed)}`);
+        failed.forEach(record => {
+          if (record.message) toast.error(record.message);
+        });
+      }
+
+      return successful?.length === 1;
+    } catch (error) {
+      console.error("Error deleting assignment:", error?.response?.data?.message || error);
+      return false;
     }
-    assignments.splice(index, 1);
-    return true;
   },
 
   async toggleComplete(id) {
-    await delay(200);
-    const index = assignments.findIndex(a => a.Id === parseInt(id));
-    if (index === -1) {
-      throw new Error("Assignment not found");
+    try {
+      // First get the current assignment
+      const currentAssignment = await this.getById(id);
+      if (!currentAssignment) {
+        throw new Error("Assignment not found");
+      }
+
+      // Update with toggled completion status
+      const updated = await this.update(id, {
+        ...currentAssignment,
+        completed_c: !currentAssignment.completed_c
+      });
+
+      return updated;
+    } catch (error) {
+      console.error("Error toggling assignment completion:", error?.response?.data?.message || error);
+      return null;
     }
-    assignments[index].completed = !assignments[index].completed;
-    return { ...assignments[index] };
   }
 };

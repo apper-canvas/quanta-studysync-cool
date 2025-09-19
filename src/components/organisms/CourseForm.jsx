@@ -6,13 +6,13 @@ import FormField from "@/components/molecules/FormField";
 import ApperIcon from "@/components/ApperIcon";
 
 const CourseForm = ({ isOpen, onClose, course, onSave }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    instructor: "",
-    credits: "",
-    color: "#4f46e5",
-    semester: "Fall 2024",
-    schedule: []
+const [formData, setFormData] = useState({
+    name_c: "",
+    instructor_c: "",
+    credits_c: "",
+    color_c: "#4f46e5",
+    semester_c: "Fall 2024",
+    schedule_c: []
   });
 
   const [scheduleEntry, setScheduleEntry] = useState({
@@ -37,14 +37,14 @@ const CourseForm = ({ isOpen, onClose, course, onSave }) => {
   ];
 
   useEffect(() => {
-    if (course) {
+if (course) {
       setFormData({
-        name: course.name || "",
-        instructor: course.instructor || "",
-        credits: course.credits?.toString() || "",
-        color: course.color || "#4f46e5",
-        semester: course.semester || "Fall 2024",
-        schedule: course.schedule || []
+        name_c: course.name_c || "",
+        instructor_c: course.instructor_c || "",
+        credits_c: course.credits_c?.toString() || "",
+        color_c: course.color_c || "#4f46e5",
+        semester_c: course.semester_c || "Fall 2024",
+        schedule_c: course.schedule_c || []
       });
     } else {
       setFormData({
@@ -130,8 +130,8 @@ const CourseForm = ({ isOpen, onClose, course, onSave }) => {
     }
 
     const courseData = {
-      ...formData,
-      credits: parseInt(formData.credits),
+...formData,
+      credits_c: parseInt(formData.credits_c),
       Id: course?.Id
     };
 
@@ -146,16 +146,16 @@ const CourseForm = ({ isOpen, onClose, course, onSave }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormField
                 label="Course Name"
-                value={formData.name}
-                onChange={(e) => handleInputChange("name", e.target.value)}
+value={formData.name_c}
+                onChange={(e) => handleInputChange("name_c", e.target.value)}
                 placeholder="e.g., Introduction to Psychology"
                 required
               />
               
               <FormField
                 label="Instructor"
-                value={formData.instructor}
-                onChange={(e) => handleInputChange("instructor", e.target.value)}
+value={formData.instructor_c}
+                onChange={(e) => handleInputChange("instructor_c", e.target.value)}
                 placeholder="e.g., Dr. Smith"
                 required
               />
@@ -164,8 +164,8 @@ const CourseForm = ({ isOpen, onClose, course, onSave }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormField
                 label="Credits"
-                type="number"
-                value={formData.credits}
+type="number"
+                value={formData.credits_c}
                 onChange={(e) => handleInputChange("credits", e.target.value)}
                 min="1"
                 max="6"
@@ -174,8 +174,8 @@ const CourseForm = ({ isOpen, onClose, course, onSave }) => {
               
               <FormField
                 label="Semester"
-                value={formData.semester}
-                onChange={(e) => handleInputChange("semester", e.target.value)}
+value={formData.semester_c}
+                onChange={(e) => handleInputChange("semester_c", e.target.value)}
                 placeholder="e.g., Fall 2024"
                 required
               />
@@ -190,7 +190,7 @@ const CourseForm = ({ isOpen, onClose, course, onSave }) => {
                   <button
                     key={color}
                     type="button"
-                    onClick={() => handleInputChange("color", color)}
+onClick={() => handleInputChange("color_c", color)}
                     className={`w-10 h-10 rounded-lg border-2 transition-all ${
                       formData.color === color ? "border-slate-900 scale-110" : "border-slate-200"
                     }`}

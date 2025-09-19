@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
-
+import { AuthContext } from "../../App";
 const Header = ({ onMenuClick, title, subtitle, rightContent }) => {
   return (
     <header className="bg-white border-b border-slate-200 shadow-sm">
@@ -26,13 +26,28 @@ const Header = ({ onMenuClick, title, subtitle, rightContent }) => {
           </div>
         </div>
 
-        {rightContent && (
-          <div className="flex items-center gap-2">
-            {rightContent}
-          </div>
-        )}
+<div className="flex items-center gap-2">
+          {rightContent}
+          <LogoutButton />
+        </div>
       </div>
     </header>
+);
+};
+
+const LogoutButton = () => {
+  const { logout } = useContext(AuthContext);
+  
+  return (
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={logout}
+      className="ml-2"
+    >
+      <ApperIcon name="LogOut" size={16} className="mr-1" />
+      Logout
+    </Button>
   );
 };
 

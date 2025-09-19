@@ -77,16 +77,16 @@ const Grades = ({ onMenuClick }) => {
   };
 
   const calculateCourseGrade = (courseId) => {
-    const courseGrades = grades.filter(g => g.courseId === courseId);
+const courseGrades = grades.filter(g => g.course_id_c === courseId);
     if (courseGrades.length === 0) return null;
     
     // Group by category and calculate weighted average
     const categories = {};
-    courseGrades.forEach(grade => {
-      if (!categories[grade.category]) {
-        categories[grade.category] = [];
+courseGrades.forEach(grade => {
+      if (!categories[grade.category_c]) {
+        categories[grade.category_c] = [];
       }
-      categories[grade.category].push(grade);
+      categories[grade.category_c].push(grade);
     });
 
     let totalWeightedScore = 0;
@@ -94,10 +94,10 @@ const Grades = ({ onMenuClick }) => {
 
     Object.keys(categories).forEach(category => {
       const categoryGrades = categories[category];
-      const categoryAvg = categoryGrades.reduce((sum, g) => 
-        sum + (g.score / g.maxScore * 100), 0) / categoryGrades.length;
+const categoryAvg = categoryGrades.reduce((sum, g) => 
+        sum + (g.score_c / g.max_score_c * 100), 0) / categoryGrades.length;
       
-      const weight = categoryGrades[0].weight;
+const weight = categoryGrades[0].weight_c;
       totalWeightedScore += categoryAvg * weight;
       totalWeight += weight;
     });
@@ -112,11 +112,11 @@ const Grades = ({ onMenuClick }) => {
     let totalCredits = 0;
     
     courses.forEach(course => {
-      const courseGrade = calculateCourseGrade(course.Id);
+const courseGrade = calculateCourseGrade(course.Id);
       if (courseGrade !== null) {
         const gpa = scoreToGPA(courseGrade);
-        totalPoints += gpa * course.credits;
-        totalCredits += course.credits;
+        totalPoints += gpa * course.credits_c;
+        totalCredits += course.credits_c;
       }
     });
     
@@ -126,14 +126,14 @@ const Grades = ({ onMenuClick }) => {
   const courseOptions = [
     { value: "all", label: "All Courses" },
     ...courses.map(course => ({
-      value: course.Id.toString(),
-      label: course.name
+value: course.Id.toString(),
+      label: course.name_c
     }))
   ];
 
-  const filteredGrades = selectedCourse === "all" 
+const filteredGrades = selectedCourse === "all" 
     ? grades 
-    : grades.filter(g => g.courseId.toString() === selectedCourse);
+    : grades.filter(g => g.course_id_c.toString() === selectedCourse);
 
   if (loading) return <Loading />;
   if (error) return <Error message={error} onRetry={loadData} />;
@@ -190,9 +190,9 @@ const Grades = ({ onMenuClick }) => {
       {courses.length > 0 ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {courses
-            .filter(course => selectedCourse === "all" || course.Id.toString() === selectedCourse)
+.filter(course => selectedCourse === "all" || course.Id.toString() === selectedCourse)
             .map(course => {
-              const courseGrades = grades.filter(g => g.courseId === course.Id);
+              const courseGrades = grades.filter(g => g.course_id_c === course.Id);
               const courseAverage = calculateCourseGrade(course.Id);
               
               return (
@@ -204,9 +204,9 @@ const Grades = ({ onMenuClick }) => {
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="text-lg font-semibold text-slate-900">
-                          {course.name}
+{course.name_c}
                         </h3>
-                        <p className="text-sm text-slate-600">{course.instructor}</p>
+                        <p className="text-sm text-slate-600">{course.instructor_c}</p>
                       </div>
                       {courseAverage !== null && (
                         <div className="text-right">
@@ -224,16 +224,16 @@ const Grades = ({ onMenuClick }) => {
                   <Card.Content>
                     {courseGrades.length > 0 ? (
                       <div className="space-y-3">
-                        {courseGrades.map(grade => {
-                          const percentage = (grade.score / grade.maxScore) * 100;
+{courseGrades.map(grade => {
+                          const percentage = (grade.score_c / grade.max_score_c) * 100;
                           return (
                             <div key={grade.Id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
                               <div>
-                                <div className="font-medium text-slate-900">
-                                  {grade.category}
+<div className="font-medium text-slate-900">
+                                  {grade.category_c}
                                 </div>
                                 <div className="text-sm text-slate-600">
-                                  Weight: {(grade.weight * 100)}%
+                                  Weight: {(grade.weight_c * 100)}%
                                 </div>
                               </div>
                               <div className="text-right">

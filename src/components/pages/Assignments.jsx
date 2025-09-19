@@ -125,43 +125,43 @@ const Assignments = ({ onMenuClick }) => {
 
   const courseOptions = [
     { value: "all", label: "All Courses" },
-    ...courses.map(course => ({
+...courses.map(course => ({
       value: course.Id.toString(),
-      label: course.name
+      label: course.name_c
     }))
   ];
 
   const filteredAndSortedAssignments = assignments
-    .filter(assignment => {
-      const matchesSearch = assignment.title.toLowerCase().includes(searchQuery.toLowerCase());
+.filter(assignment => {
+      const matchesSearch = assignment.title_c.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesStatus = statusFilter === "all" || 
-        (statusFilter === "completed" && assignment.completed) ||
-        (statusFilter === "pending" && !assignment.completed);
-      const matchesCourse = courseFilter === "all" || assignment.courseId.toString() === courseFilter;
+        (statusFilter === "completed" && assignment.completed_c) ||
+        (statusFilter === "pending" && !assignment.completed_c);
+      const matchesCourse = courseFilter === "all" || assignment.course_id_c.toString() === courseFilter;
       const matchesPriority = priorityFilter === "all" || assignment.priority === priorityFilter;
       
       return matchesSearch && matchesStatus && matchesCourse && matchesPriority;
     })
     .sort((a, b) => {
       switch (sortBy) {
-        case "dueDate":
-          return new Date(a.dueDate) - new Date(b.dueDate);
+case "dueDate":
+          return new Date(a.due_date_c) - new Date(b.due_date_c);
         case "title":
-          return a.title.localeCompare(b.title);
+          return a.title_c.localeCompare(b.title_c);
         case "priority":
           const priorityOrder = { "high": 3, "medium": 2, "low": 1 };
-          return priorityOrder[b.priority] - priorityOrder[a.priority];
+          return priorityOrder[b.priority_c] - priorityOrder[a.priority_c];
         case "course":
-          const courseA = courses.find(c => c.Id === a.courseId)?.name || "";
-          const courseB = courses.find(c => c.Id === b.courseId)?.name || "";
+          const courseA = courses.find(c => c.Id === a.course_id_c)?.name_c || "";
+          const courseB = courses.find(c => c.Id === b.course_id_c)?.name_c || "";
           return courseA.localeCompare(courseB);
         default:
           return 0;
       }
     });
 
-  const pendingCount = assignments.filter(a => !a.completed).length;
-  const completedCount = assignments.filter(a => a.completed).length;
+const pendingCount = assignments.filter(a => !a.completed_c).length;
+  const completedCount = assignments.filter(a => a.completed_c).length;
 
   if (loading) return <Loading />;
   if (error) return <Error message={error} onRetry={loadData} />;
@@ -242,13 +242,13 @@ const Assignments = ({ onMenuClick }) => {
       {/* Assignments List */}
       {filteredAndSortedAssignments.length > 0 ? (
         <div className="space-y-4">
-          {filteredAndSortedAssignments.map(assignment => {
-            const course = courses.find(c => c.Id === assignment.courseId);
+{filteredAndSortedAssignments.map(assignment => {
+            const course = courses.find(c => c.Id === assignment.course_id_c);
             return (
               <AssignmentCard
                 key={assignment.Id}
                 assignment={assignment}
-                course={course || { name: "Unknown Course", color: "#6b7280" }}
+                course={course || { name_c: "Unknown Course", color_c: "#6b7280" }}
                 onToggleComplete={handleToggleComplete}
                 onEdit={handleEditAssignment}
                 onDelete={handleDeleteAssignment}

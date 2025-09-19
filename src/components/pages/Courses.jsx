@@ -95,20 +95,20 @@ const Courses = ({ onMenuClick }) => {
   ];
 
   const filteredAndSortedCourses = courses
-    .filter(course => 
-      course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      course.instructor.toLowerCase().includes(searchQuery.toLowerCase())
+.filter(course => 
+      course.name_c.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      course.instructor_c.toLowerCase().includes(searchQuery.toLowerCase())
     )
     .sort((a, b) => {
       switch (sortBy) {
         case "name":
-          return a.name.localeCompare(b.name);
+          return a.name_c.localeCompare(b.name_c);
         case "instructor":
-          return a.instructor.localeCompare(b.instructor);
+          return a.instructor_c.localeCompare(b.instructor_c);
         case "credits":
-          return b.credits - a.credits;
+          return b.credits_c - a.credits_c;
         case "semester":
-          return a.semester.localeCompare(b.semester);
+          return a.semester_c.localeCompare(b.semester_c);
         default:
           return 0;
       }

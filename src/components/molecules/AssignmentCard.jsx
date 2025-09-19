@@ -6,9 +6,9 @@ import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
 
 const AssignmentCard = ({ assignment, course, onToggleComplete, onEdit, onDelete }) => {
-  const dueDate = new Date(assignment.dueDate);
+const dueDate = new Date(assignment.due_date_c);
   const now = new Date();
-  const isOverdue = isAfter(now, dueDate) && !assignment.completed;
+  const isOverdue = isAfter(now, dueDate) && !assignment.completed_c;
   const daysUntilDue = differenceInDays(dueDate, now);
   
   const getPriorityColor = (priority) => {
@@ -39,38 +39,38 @@ const AssignmentCard = ({ assignment, course, onToggleComplete, onEdit, onDelete
   const dueDateInfo = getDueDateInfo();
 
   return (
-    <Card hover className={`${assignment.completed ? "opacity-70" : ""}`}>
+<Card hover className={`${assignment.completed_c ? "opacity-70" : ""}`}>
       <Card.Content>
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-start gap-3 flex-1">
             <button
               onClick={() => onToggleComplete(assignment.Id)}
               className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
-                assignment.completed 
-                  ? "bg-success border-success text-white" 
+assignment.completed_c 
+                  ? "bg-success border-success text-white"
                   : "border-slate-300 hover:border-primary"
               }`}
             >
-              {assignment.completed && <ApperIcon name="Check" size={12} />}
+{assignment.completed_c && <ApperIcon name="Check" size={12} />}
             </button>
             <div className="flex-1 min-w-0">
               <h3 className={`font-medium mb-1 ${
-                assignment.completed ? "text-slate-500 line-through" : "text-slate-900"
+                assignment.completed_c ? "text-slate-500 line-through" : "text-slate-900"
               }`}>
                 {assignment.title}
               </h3>
               <div className="flex items-center gap-2 text-sm text-slate-500 mb-2">
-                <span style={{ color: course.color }} className="font-medium">
-                  {course.name}
+<span style={{ color: course.color_c }} className="font-medium">
+                  {course.name_c}
                 </span>
                 <span>•</span>
                 <span>{format(dueDate, "MMM d, yyyy")}</span>
                 <span>•</span>
-                <Badge variant={getPriorityColor(assignment.priority)} size="sm">
+<Badge variant={getPriorityColor(assignment.priority_c)} size="sm">
                   {assignment.priority}
                 </Badge>
               </div>
-              {assignment.description && (
+{assignment.description_c && (
                 <p className="text-sm text-slate-600 mb-2">{assignment.description}</p>
               )}
               {dueDateInfo && (

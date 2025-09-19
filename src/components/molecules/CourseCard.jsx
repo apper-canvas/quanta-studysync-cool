@@ -6,8 +6,7 @@ import ApperIcon from "@/components/ApperIcon";
 
 const CourseCard = ({ course, onEdit, onDelete, onViewAssignments }) => {
   const getNextClass = () => {
-    if (!course.schedule || course.schedule.length === 0) return null;
-    
+if (!course.schedule_c || course.schedule_c.length === 0) return null;
     const now = new Date();
     const currentDay = now.getDay();
     const currentTime = now.getHours() * 60 + now.getMinutes();
@@ -15,7 +14,7 @@ const CourseCard = ({ course, onEdit, onDelete, onViewAssignments }) => {
     // Find next class
     for (let i = 0; i < 7; i++) {
       const checkDay = (currentDay + i) % 7;
-      const daySchedule = course.schedule.find(s => s.day === checkDay);
+const daySchedule = course.schedule_c.find(s => s.day === checkDay);
       
       if (daySchedule && (i > 0 || daySchedule.time > currentTime)) {
         const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -37,20 +36,20 @@ const CourseCard = ({ course, onEdit, onDelete, onViewAssignments }) => {
       <div 
         className="h-2 bg-gradient-to-r"
         style={{ 
-          background: `linear-gradient(90deg, ${course.color}40, ${course.color})` 
+background: `linear-gradient(90deg, ${course.color_c}40, ${course.color_c})` 
         }}
       />
       <Card.Content className="pb-4">
         <div className="flex items-start justify-between mb-3">
           <div>
             <h3 className="text-lg font-semibold text-slate-900 mb-1">
-              {course.name}
+{course.name_c}
             </h3>
-            <p className="text-slate-600 text-sm mb-2">{course.instructor}</p>
+            <p className="text-slate-600 text-sm mb-2">{course.instructor_c}</p>
             <div className="flex items-center gap-4 text-sm text-slate-500">
               <span className="flex items-center">
                 <ApperIcon name="BookOpen" size={16} className="mr-1" />
-                {course.credits} credits
+{course.credits_c} credits
               </span>
               {nextClass && (
                 <span className="flex items-center">
@@ -60,7 +59,7 @@ const CourseCard = ({ course, onEdit, onDelete, onViewAssignments }) => {
               )}
             </div>
           </div>
-          <Badge variant="secondary">{course.semester}</Badge>
+<Badge variant="secondary">{course.semester_c}</Badge>
         </div>
 
         <div className="flex gap-2 mt-4">

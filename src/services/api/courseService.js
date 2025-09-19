@@ -36,7 +36,15 @@ export const courseService = {
         credits_c: course.credits_c,
         color_c: course.color_c,
         semester_c: course.semester_c,
-        schedule_c: course.schedule_c ? JSON.parse(course.schedule_c) : []
+schedule_c: course.schedule_c && course.schedule_c !== 'undefined' ? 
+          (() => {
+            try {
+              return JSON.parse(course.schedule_c);
+            } catch (e) {
+              console.warn('Invalid schedule JSON:', course.schedule_c);
+              return [];
+            }
+          })() : []
       })) || [];
     } catch (error) {
       console.error("Error fetching courses:", error?.response?.data?.message || error);
@@ -77,8 +85,16 @@ export const courseService = {
         instructor_c: course.instructor_c,
         credits_c: course.credits_c,
         color_c: course.color_c,
-        semester_c: course.semester_c,
-        schedule_c: course.schedule_c ? JSON.parse(course.schedule_c) : []
+semester_c: course.semester_c || 'Not Specified',
+        schedule_c: course.schedule_c && course.schedule_c !== 'undefined' ? 
+          (() => {
+            try {
+              return JSON.parse(course.schedule_c);
+            } catch (e) {
+              console.warn('Invalid schedule JSON:', course.schedule_c);
+              return [];
+            }
+          })() : []
       };
     } catch (error) {
       console.error(`Error fetching course ${id}:`, error?.response?.data?.message || error);

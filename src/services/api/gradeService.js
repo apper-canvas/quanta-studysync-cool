@@ -32,7 +32,7 @@ export const gradeService = {
       return response.data?.map(grade => ({
         Id: grade.Id,
         course_id_c: grade.course_id_c?.Id || grade.course_id_c,
-        assignment_id_c: grade.assignment_id_c,
+assignment_id_c: grade.assignment_id_c || null,
         score_c: grade.score_c,
         max_score_c: grade.max_score_c,
         category_c: grade.category_c,
@@ -74,7 +74,7 @@ export const gradeService = {
       return {
         Id: grade.Id,
         course_id_c: grade.course_id_c?.Id || grade.course_id_c,
-        assignment_id_c: grade.assignment_id_c,
+assignment_id_c: grade.assignment_id_c || null,
         score_c: grade.score_c,
         max_score_c: grade.max_score_c,
         category_c: grade.category_c,
@@ -120,7 +120,7 @@ export const gradeService = {
         Id: grade.Id,
         course_id_c: grade.course_id_c?.Id || grade.course_id_c,
         assignment_id_c: grade.assignment_id_c,
-        score_c: grade.score_c,
+score_c: grade.score_c !== undefined ? grade.score_c : 0,
         max_score_c: grade.max_score_c,
         category_c: grade.category_c,
         weight_c: grade.weight_c

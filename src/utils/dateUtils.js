@@ -30,18 +30,6 @@ export const safeParseISO = (dateString, fallback = new Date()) => {
     return fallback;
   }
 };
-
-export const safeFormatDate = (date, formatString = 'yyyy-MM-dd', fallback = '') => {
-  try {
-    if (!date) return fallback;
-    const parsedDate = typeof date === 'string' ? safeParseISO(date) : date;
-    return format(parsedDate, formatString);
-  } catch (error) {
-    console.warn('safeFormatDate: Formatting failed:', error.message, 'Date:', date);
-    return fallback;
-  }
-};
-
 /**
  * Safely format date with validation
  * @param {Date|string} date - Date to format

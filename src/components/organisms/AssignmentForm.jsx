@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
+import { safeParseISO } from "@/utils/dateUtils";
 import { toast } from "react-toastify";
 import Modal from "@/components/atoms/Modal";
 import Button from "@/components/atoms/Button";
@@ -36,7 +37,7 @@ if (assignment) {
       setFormData({
         title_c: assignment.title_c || "",
         course_id_c: assignment.course_id_c?.toString() || "",
-        due_date_c: assignment.due_date_c ? format(new Date(assignment.due_date_c), "yyyy-MM-dd") : "",
+        due_date_c: assignment.due_date_c ? format(safeParseISO(assignment.due_date_c), "yyyy-MM-dd") : "",
         priority_c: assignment.priority_c || "medium",
         type_c: assignment.type_c || "Assignment",
         description_c: assignment.description_c || "",

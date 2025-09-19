@@ -8,14 +8,16 @@ import { parseISO, isValid, format } from 'date-fns';
  * @returns {Date} Parsed date or fallback
  */
 export const safeParseISO = (dateString, fallback = new Date()) => {
-  // Return fallback immediately if input is falsy or not a string
-  if (!dateString || typeof dateString !== 'string') {
+  // Return fallback immediately if input is null, undefined, or not a string
+  if (dateString === null || dateString === undefined || typeof dateString !== 'string') {
+    console.warn('safeParseISO: Invalid input type:', typeof dateString, 'Value:', dateString);
     return fallback;
   }
   
   // Additional safety check for empty strings after trimming
   const trimmed = dateString.trim();
   if (!trimmed || trimmed.length === 0) {
+    console.warn('safeParseISO: Empty string after trimming:', dateString);
     return fallback;
   }
   
@@ -24,7 +26,18 @@ export const safeParseISO = (dateString, fallback = new Date()) => {
     const parsed = parseISO(trimmed);
     return isValid(parsed) ? parsed : fallback;
   } catch (error) {
-    console.warn('Date parsing failed:', error.message, 'Input:', dateString, 'Type:', typeof dateString);
+    console.warn('safeParseISO: Date parsing failed:', error.message, 'Input:', dateString, 'Type:', typeof dateString);
+    return fallback;
+  }
+};
+
+export const safeFormatDate = (date, formatString = 'yyyy-MM-dd', fallback = '') => {
+  try {
+    if (!date) return fallback;
+    const parsedDate = typeof date === 'string' ? safeParseISO(date) : date;
+    return format(parsedDate, formatString);
+  } catch (error) {
+    console.warn('safeFormatDate: Formatting failed:', error.message, 'Date:', date);
     return fallback;
   }
 };

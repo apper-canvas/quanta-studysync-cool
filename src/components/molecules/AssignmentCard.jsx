@@ -1,12 +1,13 @@
 import React from "react";
 import { format, isAfter, differenceInDays } from "date-fns";
+import { safeParseISO } from "@/utils/dateUtils";
 import Card from "@/components/atoms/Card";
 import Badge from "@/components/atoms/Badge";
 import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
 
 const AssignmentCard = ({ assignment, course, onToggleComplete, onEdit, onDelete }) => {
-const dueDate = new Date(assignment.due_date_c);
+const dueDate = safeParseISO(assignment.due_date_c);
   const now = new Date();
   const isOverdue = isAfter(now, dueDate) && !assignment.completed_c;
   const daysUntilDue = differenceInDays(dueDate, now);
